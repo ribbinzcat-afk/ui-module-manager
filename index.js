@@ -170,7 +170,7 @@ jQuery(async () => {
             }
         });
 
-        // Event: Add / Save Module
+        // 🟢 Event: Add / Save Module
         $(document).on("click", ".add-module-btn", function() {
             const container = $(this).closest('.ui-module-manager-settings');
             const nameInput = container.find(".module-name-input").val().trim();
@@ -198,6 +198,9 @@ jQuery(async () => {
             $(".module-name-input, .module-code-input, .char-name-input").val("");
             $(".scope-select-input").val("global").trigger("change");
             renderModuleList();
+
+            // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังบันทึก
+            setTimeout(() => executeActiveModules(null), 300);
         });
 
         // Event: Edit Module
@@ -218,7 +221,7 @@ jQuery(async () => {
             }
         });
 
-        // Event: Toggle & Delete Module
+        // 🟢 Event: Toggle & Delete Module
         $(document).on("change", ".ui-module-toggle", function() {
             const moduleId = $(this).data("id");
             const isEnabled = $(this).prop("checked");
@@ -227,6 +230,9 @@ jQuery(async () => {
                 module.enabled = isEnabled;
                 saveSettingsDebounced();
                 $(`.ui-module-toggle[data-id='${moduleId}']`).prop("checked", isEnabled);
+
+                // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังเปิด/ปิดสวิตช์
+                setTimeout(() => executeActiveModules(null), 300);
             }
         });
 
@@ -268,7 +274,26 @@ jQuery(async () => {
             });
             saveSettingsDebounced();
             renderModuleList();
-            toastr.info(`Preset loaded.`);
+            toastr.success(`Preset loaded!`);
+        });
+        
+        $(document).on("click", ".load-preset-btn", function() {
+            const container = $(this).closest('.ui-module-manager-settings');
+            const presetName = container.find(".preset-select-input").val();
+            if (!presetName) return;
+
+            const activeIds = extension_settings[extensionName].presets[presetName];
+            if (!activeIds) return;
+
+            extension_settings[extensionName].modules.forEach(module => {
+                module.enabled = activeIds.includes(module.id);
+            });
+            saveSettingsDebounced();
+            renderModuleList();
+            toastr.success(`Preset loaded!`);
+
+            // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังโหลด Preset
+            setTimeout(() => executeActiveModules(null), 300);
         });
 
         $(document).on("click", ".delete-preset-btn", function() {

@@ -1,0 +1,160 @@
+<!-- 1️⃣ หน้าต่างฝาแฝดคนพี่: อยู่ใน Drawer ด้านขวา -->
+<div class="ui-module-manager-settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b><i class="fa-solid fa-wand-magic-sparkles"></i> UI Module Manager</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+
+            <!-- Settings -->
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px dashed #f0e6f7;">
+                <b>General Settings</b>
+                <div style="margin-top: 10px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input class="toggle-quick-btn-input" type="checkbox" style="margin-right: 10px;">
+                        <span style="font-size: 0.9em;">Show Magic Wand Button</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Presets -->
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px dashed #f0e6f7;">
+                <b>Presets</b>
+                <div style="display: flex; gap: 5px; margin-top: 10px; align-items: center;">
+                    <select class="preset-select-input" style="flex: 1; min-width: 0;">
+                        <option value="">-- Select --</option>
+                    </select>
+                    <input class="load-preset-btn menu_button" type="button" value="Load">
+                </div>
+                <!-- แก้ปุ่มล้นกรอบด้วย flex-wrap และลดขนาด gap -->
+                <div style="display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap;">
+                    <input class="preset-name-input" type="text" placeholder="New Preset" style="flex: 1; min-width: 100px;">
+                    <input class="save-preset-btn menu_button" type="button" value="Save">
+                    <input class="delete-preset-btn menu_button ui-module-delete" type="button" value="Delete">
+                </div>
+            </div>
+
+            <!-- List -->
+            <div style="margin-bottom: 20px;">
+                <b>Installed Modules</b>
+                <div class="module-list-container" style="margin-top: 10px; max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                    <!-- List will be generated here -->
+                </div>
+            </div>
+
+            <!-- Editor -->
+            <div style="background-color: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #f0e6f7;">
+                <b>Add / Edit Module</b>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.85em; color: #888;">Scope:</label>
+                        <select class="scope-select-input" style="width: 100%; margin-top: 5px;">
+                            <option value="global">Global</option>
+                            <option value="character">Specific</option>
+                        </select>
+                    </div>
+                    <div class="char-container-div" style="flex: 1; display: none; flex-direction: column;">
+                        <label style="font-size: 0.85em; color: #888;">Char Name:</label>
+                        <input class="char-name-input" type="text" placeholder="e.g. Tiramisu" style="margin-top: 5px;">
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <input class="module-name-input" type="text" placeholder="Module Name" style="width: 100%;">
+                </div>
+                <div style="margin-top: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <label style="font-size: 0.85em; color: #888;">Code:</label>
+                        <span class="expand-editor-btn" style="cursor: pointer; font-size: 0.85em; color: #bde0fe; font-weight: bold;"><i class="fa-solid fa-expand"></i> Expand</span>
+                    </div>
+                    <textarea class="module-code-input" rows="5" placeholder="Enter JS code..." style="width: 100%; font-family: monospace; resize: vertical;"></textarea>
+                </div>
+                <input class="add-module-btn menu_button" type="button" value="Add Module" style="width: 100%; margin-top: 10px; background-color: #ffc8dd;">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 2️⃣ หน้าต่างฝาแฝดคนน้อง: Main Modal (Pop-up ลอยกลางจอ เรียกผ่านคทา) -->
+<div id="ui-module-main-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; justify-content: center; align-items: center; background-color: rgba(0,0,0,0.4); backdrop-filter: blur(3px);">
+    <div class="ui-module-manager-settings" style="width: 90%; max-width: 800px; max-height: 90vh; display: flex; flex-direction: column; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(205, 180, 219, 0.4);">
+        <!-- Header -->
+        <div style="background: linear-gradient(to right, #f8edeb, #fcd5ce); display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; font-weight: bold; font-size: 1.2em; color: #5c5c5c;">
+            <span><i class="fa-solid fa-wand-magic-sparkles"></i> UI Module Manager (Pop-up)</span>
+            <span id="ui-module-main-close" style="cursor: pointer; font-size: 1.5em;">×</span>
+        </div>
+
+        <!-- Content (Scrollable) -->
+        <div style="padding: 20px; overflow-y: auto; background-color: #faf8fc;">
+            <!-- โครงสร้างเหมือน Drawer ทุกประการ แต่กว้างกว่า -->
+
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px dashed #f0e6f7;">
+                <b>Presets</b>
+                <div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
+                    <select class="preset-select-input" style="flex: 1;">
+                        <option value="">-- Select Preset --</option>
+                    </select>
+                    <input class="load-preset-btn menu_button" type="button" value="Load">
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <input class="preset-name-input" type="text" placeholder="New Preset Name" style="flex: 1;">
+                    <input class="save-preset-btn menu_button" type="button" value="Save Current">
+                    <input class="delete-preset-btn menu_button ui-module-delete" type="button" value="Delete">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <b>Installed Modules</b>
+                <div class="module-list-container" style="margin-top: 10px; max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                    <!-- List will be generated here -->
+                </div>
+            </div>
+
+            <div style="background-color: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #f0e6f7;">
+                <b>Add / Edit Module</b>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 0.85em; color: #888;">Scope:</label>
+                        <select class="scope-select-input" style="width: 100%; margin-top: 5px;">
+                            <option value="global">Global (All Characters)</option>
+                            <option value="character">Specific Character</option>
+                        </select>
+                    </div>
+                    <div class="char-container-div" style="flex: 1; display: none; flex-direction: column;">
+                        <label style="font-size: 0.85em; color: #888;">Char Name:</label>
+                        <input class="char-name-input" type="text" placeholder="e.g. Tiramisu" style="margin-top: 5px;">
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <input class="module-name-input" type="text" placeholder="Module Name" style="width: 100%;">
+                </div>
+                <div style="margin-top: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <label style="font-size: 0.85em; color: #888;">JavaScript Code:</label>
+                        <span class="expand-editor-btn" style="cursor: pointer; font-size: 0.85em; color: #bde0fe; font-weight: bold;"><i class="fa-solid fa-expand"></i> Expand Editor</span>
+                    </div>
+                    <textarea class="module-code-input" rows="5" placeholder="Enter JS code here..." style="width: 100%; font-family: monospace; resize: vertical;"></textarea>
+                </div>
+                <input class="add-module-btn menu_button" type="button" value="Add Module" style="width: 100%; margin-top: 10px; background-color: #ffc8dd;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🌸 หน้าต่างลอยสำหรับเขียนโค้ด (Floating Editor อันเดิม) 🌸 -->
+<div id="ui-module-editor-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; justify-content: center; align-items: center; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(3px);">
+    <div class="ui-module-manager-settings" style="width: 90%; max-width: 800px; display: flex; flex-direction: column; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(205, 180, 219, 0.3);">
+        <div style="background: linear-gradient(to right, #f8edeb, #fcd5ce); padding: 15px 20px; font-weight: bold; color: #5c5c5c;">
+            <b>Floating Code Editor</b>
+            <span id="ui-module-modal-close" style="float: right; cursor: pointer; font-size: 1.2em;">×</span>
+        </div>
+        <textarea id="ui-module-modal-textarea" rows="20" style="border: none; border-radius: 0; padding: 15px; font-family: 'Consolas', monospace; background-color: #faf9f9; color: #4a4a4a;"></textarea>
+        <div style="display: flex; justify-content: flex-end; padding: 15px 20px; background-color: #ffffff;">
+            <input id="ui-module-modal-cancel" class="menu_button" type="button" value="Cancel" style="margin-right: 10px; background-color: #e9ecef;">
+            <input id="ui-module-modal-apply" class="menu_button" type="button" value="Apply to Input">
+        </div>
+    </div>
+</div>

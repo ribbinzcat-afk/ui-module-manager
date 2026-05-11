@@ -1,0 +1,226 @@
+/* ☁️ Pastel Cloud Theme (Scoped Correctly) ☁️ */
+
+/* นำเข้าฟอนต์ 'Mali' จาก Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap');
+
+/* คอนเทนเนอร์หลัก (แก้ไขฟอนต์) */
+.ui-module-manager-settings {
+    font-family: 'Mali', 'Segoe UI', Tahoma, sans-serif;
+    color: #5c5c5c;
+}
+
+/* เพิ่มสไตล์สำหรับปุ่มคทาเวทมนตร์ข้างช่องแชท */
+#ui-module-quick-btn {
+    color: #cdb4db;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1.2em;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ui-module-quick-btn:hover {
+    color: #ffafcc;
+}
+
+/* หัวข้อ Drawer */
+.ui-module-manager-settings .inline-drawer-header {
+    background: linear-gradient(135deg, #ffd1dc 0%, #e0c3fc 100%) !important;
+    color: #4a4a4a !important;
+    border-radius: 12px;
+    padding: 10px 15px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(224, 195, 252, 0.3);
+    transition: all 0.3s ease;
+}
+
+.ui-module-manager-settings .inline-drawer-header:hover {
+    box-shadow: 0 6px 15px rgba(224, 195, 252, 0.5);
+    transform: translateY(-1px);
+}
+
+/* พื้นหลังเนื้อหาด้านใน */
+.ui-module-manager-settings .inline-drawer-content {
+    background-color: #faf8fc;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    border: 1px solid #f0e6f7;
+    border-top: none;
+}
+
+/* สไตล์ของปุ่มทั่วไปภายใน Extension นี้เท่านั้น */
+.ui-module-manager-settings .menu_button,
+.ui-module-manager-settings input[type="button"],
+.ui-module-manager-settings input[type="submit"] {
+    background-color: #bde0fe;
+    color: #4a4a4a;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(189, 224, 254, 0.4);
+    transition: all 0.2s ease;
+}
+
+.ui-module-manager-settings .menu_button:hover,
+.ui-module-manager-settings input[type="button"]:hover {
+    background-color: #a2d2ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(189, 224, 254, 0.5);
+}
+
+/* ปุ่ม Add/Save */
+.ui-module-manager-settings #ui-module-add-btn {
+    background-color: #ffc8dd;
+    box-shadow: 0 3px 6px rgba(255, 200, 221, 0.4);
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.ui-module-manager-settings #ui-module-add-btn:hover {
+    background-color: #ffafcc;
+    box-shadow: 0 5px 10px rgba(255, 200, 221, 0.5);
+}
+
+/* ปุ่ม Delete */
+.ui-module-manager-settings .ui-module-delete {
+    background-color: #ffb4a2 !important;
+    padding: 4px 10px;
+    font-size: 0.85em;
+}
+
+.ui-module-manager-settings .ui-module-delete:hover {
+    background-color: #e5989b !important;
+}
+
+/* ปุ่ม Edit */
+.ui-module-manager-settings .ui-module-edit {
+    background-color: #cbf0f8 !important;
+    padding: 4px 10px;
+    font-size: 0.85em;
+    margin-right: 5px;
+}
+
+/* กล่องรายการโมดูล */
+.ui-module-manager-settings #ui-module-list > div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #f1eef6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.ui-module-manager-settings #ui-module-list > div:hover {
+    background-color: #fdfcff;
+}
+
+/* ช่องกรอกข้อความ */
+.ui-module-manager-settings input[type="text"],
+.ui-module-manager-settings textarea,
+.ui-module-manager-settings select {
+    background-color: #ffffff;
+    border: 1px solid #e2d9f3;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #5c5c5c;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    transition: border-color 0.3s ease;
+}
+
+.ui-module-manager-settings input[type="text"]:focus,
+.ui-module-manager-settings textarea:focus,
+.ui-module-manager-settings select:focus {
+    outline: none;
+    border-color: #cdb4db;
+    box-shadow: 0 0 0 3px rgba(205, 180, 219, 0.2);
+}
+
+/* ป้ายกำกับ Scope */
+.ui-module-manager-settings .scope-label {
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-size: 0.75em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+/* 🌸 หน้าต่างลอย (Main Modal & Floating Editor) - Classic Absolute Centering 🌸 */
+
+/* 1. ส่วนของฉากหลังสีดำ (Backdrop) */
+#ui-module-main-modal,
+#ui-module-editor-modal {
+    display: none; /* ซ่อนไว้ก่อน (จะถูกเปลี่ยนเป็น block หรือ flex ผ่าน JS) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    z-index: 9999;
+}
+
+/* 2. ส่วนของตัวหน้าต่างสีพาสเทล (The Modal Box) */
+#ui-module-main-modal > .ui-module-manager-settings,
+#ui-module-editor-modal > div {
+    /* เวทมนตร์บทคลาสสิกที่คุณแนะนำ */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(205, 180, 219, 0.4);
+    border: 2px solid #f8edeb;
+    overflow: hidden;
+
+    /* กำหนดขนาดให้พอดี */
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh; /* ป้องกันไม่ให้สูงทะลุจอ */
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ส่วนหัวของ Modal */
+#ui-module-main-modal .ui-module-manager-settings > div:first-child,
+#ui-module-editor-modal > div > div:first-child {
+    background: linear-gradient(to right, #f8edeb, #fcd5ce);
+    color: #5c5c5c;
+    padding: 15px 20px;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* พื้นที่เนื้อหาด้านใน Modal ให้เลื่อนได้ */
+#ui-module-main-modal .ui-module-manager-settings > div:nth-child(2),
+#ui-module-editor-modal > div > div:last-child {
+    overflow-y: auto;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Media Query สำหรับมือถือ (ปรับความกว้างให้เกือบเต็มจอ) */
+@media screen and (max-width: 768px) {
+    #ui-module-main-modal > .ui-module-manager-settings,
+    #ui-module-editor-modal > div {
+        top: 50vh; /* เลื่อนลงมานิดนึงสำหรับมือถือ */
+        width: 95%;
+        max-height: 90vh;
+    }
+}

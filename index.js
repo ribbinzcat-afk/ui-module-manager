@@ -200,9 +200,10 @@ jQuery(async () => {
             $(".scope-select-input").val("global").trigger("change");
             renderModuleList();
 
+        toastr.info("Saving changes and refreshing...", "UI Module Manager", { timeOut: 2000 });
         setTimeout(() => {
             if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
-        }, 300);
+        }, 2000); // หน่วงเวลา 2 วินาทีให้ VPS บันทึกเสร็จ
 
         });
 
@@ -234,9 +235,10 @@ jQuery(async () => {
                 saveSettingsDebounced();
                 $(`.ui-module-toggle[data-id='${moduleId}']`).prop("checked", isEnabled);
 
+        toastr.info("Saving changes and refreshing...", "UI Module Manager", { timeOut: 2000 });
         setTimeout(() => {
             if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
-        }, 300);
+        }, 2000); // หน่วงเวลา 2 วินาทีให้ VPS บันทึกเสร็จ
         
             }
         });
@@ -297,10 +299,10 @@ jQuery(async () => {
             renderModuleList();
             toastr.success(`Preset loaded!`);
 
-            // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังโหลด Preset
+        toastr.info("Saving changes and refreshing...", "UI Module Manager", { timeOut: 2000 });
         setTimeout(() => {
             if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
-        }, 300);
+        }, 2000); // หน่วงเวลา 2 วินาทีให้ VPS บันทึกเสร็จ
         
         });
 

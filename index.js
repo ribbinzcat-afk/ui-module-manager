@@ -1,5 +1,6 @@
 import { extension_settings, getContext, loadExtensionSettings } from "../../../extensions.js";
-import { saveSettingsDebounced } from "../../../../script.js";
+// UPDATE: เพิ่ม reloadCurrentChat เข้ามาเพื่อใช้ล้างหน้าจอ
+import { saveSettingsDebounced, reloadCurrentChat } from "../../../../script.js";
 import { eventSource, event_types } from "../../../../script.js";
 
 const extensionName = "ui-module-manager";
@@ -199,8 +200,10 @@ jQuery(async () => {
             $(".scope-select-input").val("global").trigger("change");
             renderModuleList();
 
-            // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังบันทึก
-            setTimeout(() => executeActiveModules(null), 300);
+        setTimeout(() => {
+            if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
+        }, 300);
+
         });
 
         // Event: Edit Module
@@ -231,8 +234,10 @@ jQuery(async () => {
                 saveSettingsDebounced();
                 $(`.ui-module-toggle[data-id='${moduleId}']`).prop("checked", isEnabled);
 
-                // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังเปิด/ปิดสวิตช์
-                setTimeout(() => executeActiveModules(null), 300);
+        setTimeout(() => {
+            if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
+        }, 300);
+        
             }
         });
 
@@ -293,7 +298,10 @@ jQuery(async () => {
             toastr.success(`Preset loaded!`);
 
             // NEW: สั่งให้ระบบรันโค้ดใหม่ทันทีหลังโหลด Preset
-            setTimeout(() => executeActiveModules(null), 300);
+        setTimeout(() => {
+            if (typeof reloadCurrentChat === 'function') reloadCurrentChat();
+        }, 300);
+        
         });
 
         $(document).on("click", ".delete-preset-btn", function() {
